@@ -48,6 +48,10 @@ export class Data extends React.Component {
         return DEFAULT_TITLE_COLOR;
     }
 
+    get titleType() {
+        return this.state.name;
+    }
+
     render() {
         let fields = this.fields;
         fields = fields.concat(
@@ -58,7 +62,7 @@ export class Data extends React.Component {
         return (
         <div className="MainData">
             <div className="Title" style={{backgroundColor: this.titleColor}}>
-                <div className="Type">{this.state.name}</div>
+                <div className="Type">{this.titleType}</div>
                 <div className="Name">
                     <span>
                         {this.props.resources_cache

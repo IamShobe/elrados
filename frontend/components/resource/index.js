@@ -4,9 +4,7 @@ import {connect} from "react-redux";
 import {Data} from "../data";
 import Lock from "../fields/lock";
 import TextField from "../fields/text_field";
-//import "./index.css";
 
-//const FIELD_FILTER_LIST = ["group"];
 const AVAILABLE_TITLE_COLOR = "#96ff77";
 const RESERVED_TITLE_COLOR = "#ffd413";
 const OWNER_TITLE_COLOR = "#e13b39";
@@ -22,7 +20,7 @@ export class Resource extends Data {
         ]);
     }
     get filter_list() {
-        return ["owner", "reserved", "is_available"].concat(super.filter_list);
+        return ["owner", "reserved", "is_available", "name"].concat(super.filter_list);
     }
     get fields() {
         const class_fields = [
@@ -43,6 +41,23 @@ export class Resource extends Data {
                 this.props.resources_cache[this.props.cache_type][this.props.id].reserved ||
                 !this.props.resources_cache[this.props.cache_type][this.props.id].is_available);
     }
+    get titleType() {
+        const reserved =
+            this.props.resources_cache
+                [this.props.cache_type][this.props.id].reserved;
+        const owner =
+            this.props.resources_cache
+                [this.props.cache_type][this.props.id].owner;
+        let status = "Available";
+        if (owner) {
+            status = "Currently Running";
+        } else if (reserved) {
+            status = "Reserved";
+        }
+
+        return `${this.state.name} - ${status}`
+    }
+
     get titleColor() {
         const reserved =
             this.props.resources_cache

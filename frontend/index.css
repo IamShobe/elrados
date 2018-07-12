@@ -9,6 +9,10 @@ html, body {
     height: 100%;
 }
 
+.App {
+    box-sizing: border-box;
+}
+
 .App, .DatasContainer{
     margin: auto;
     padding: 10px;

@@ -12,6 +12,9 @@ import "./index.css";
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            current_resource: undefined
+        };
         new CallbackWebSocket((data)=>{
             console.log(data);
             switch (data.event_type) {
@@ -24,6 +27,12 @@ class App extends React.Component {
                     this.props.updateDisplayList(data.content);
                     break;
 
+                case "initialize-settings":
+                    this.setState({
+                        current_resource: data.content.default_resource
+                    });
+                    break;
+
                 default:
                     console.log(`can't route the event: ${data.event_type}`);
                     break;
@@ -31,19 +40,22 @@ class App extends React.Component {
 
         });
     }
-
-    render() {
+    get currentData() {
         const datas = [];
-        if (this.props.cache.resources["CalculatorData"]) {
-            for (let data of Object.values(this.props.cache.resources["CalculatorData"])) {
-                datas.push(<Data key={data.id} id={data.id} cache_type="CalculatorData"/>)
+        if( this.state.current_resource ) {
+            if (this.props.cache.resources[this.state.current_resource]) {
+                for (let data of Object.values(this.props.cache.resources[this.state.current_resource])) {
+                    datas.push(<Data key={data.id} id={data.id} cache_type={this.state.current_resource}/>)
+                }
             }
         }
-
+        return datas;
+    }
+    render() {
         return (
         <div className="App">
             <div className="DatasContainer">
-                {datas}
+                {this.currentData}
             </div>
         </div>);
     }

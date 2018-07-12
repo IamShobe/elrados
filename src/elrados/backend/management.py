@@ -26,10 +26,11 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
 class BroadcastServerFactory(WebSocketServerFactory):
     protocol = BroadcastServerProtocol
 
-    def __init__(self, url):
+    def __init__(self, url, settings=None):
         super(BroadcastServerFactory, self).__init__(url=url)
         self.clients = set()
         self.cache = Cache(self)
+        self.settings = settings if settings is not None else {}
 
     def initialize_resources(self, resources):
         self.cache.initialize_resources_cache(resources)
@@ -49,6 +50,12 @@ class BroadcastServerFactory(WebSocketServerFactory):
 
     def register(self, client):
         self.clients.add(client)
+        client.sendMessage(json.dumps(
+            {
+                "event_type": "initialize-settings",
+                "content": self.settings
+                }
+            ), False)
         client.sendMessage(json.dumps(
                 {
                     "event_type": "initialize-display-list",

@@ -24,10 +24,10 @@ class Lock extends React.Component {
     }
     onClick() {
         if(this.isLocked) {
-            axios.get(`/api/rotest/release_owner/${this.resourceName}`);
-            axios.get(`/api/rotest/release_reserved/${this.resourceName}`);
+            axios.get(`/api/elrados/release_owner/${this.resourceName}`);
+            axios.get(`/api/elrados/release_reserved/${this.resourceName}`);
         } else {
-            axios.get(`/api/rotest/lock_resource/${this.resourceName}`);
+            axios.get(`/api/elrados/lock_resource/${this.resourceName}`);
         }
     }
 
@@ -51,7 +51,7 @@ class Lock extends React.Component {
                  onClick={this.onClick}
                  onMouseEnter={this.onMouseEnter}
                  onMouseLeave= {this.onMouseLeave}
-                 src={this.isLocked ^ this.state.isHovered?
+                 src={(this.isLocked? 1:0) ^ (this.state.isHovered? 1:0)?
                         lockSrc: unlockSrc}/>
         );
     }

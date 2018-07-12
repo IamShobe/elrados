@@ -113,3 +113,6 @@ nohup.out
 # node
 node_modules/
 package-lock.json
+
+
+src/elrados/frontend/static/

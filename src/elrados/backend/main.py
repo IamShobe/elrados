@@ -20,9 +20,9 @@ SERVER_PORT = 9000
 
 
 class WebsocketService(object):
-    def __init__(self):
+    def __init__(self, settings=None):
         print("initializing websocket service")
-        self.factory = BroadcastServerFactory(u'ws://0.0.0.0:{}'.format(SERVER_PORT))
+        self.factory = BroadcastServerFactory(u'ws://0.0.0.0:{}'.format(SERVER_PORT), settings)
 
     @crochet.run_in_reactor
     def create_server(self, init_list):
