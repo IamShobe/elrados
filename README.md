@@ -5,7 +5,7 @@ Rotest Frontend application.
 
 ## How to start?
   - initialize new Django project.
-  - follow rotest guide to initialize resources - https://github.com/gregoil/rotest.
+  - follow [rotest guide](https://github.com/gregoil/rotest) to initialize resources.
   - add elrados.frontend to django applications in your django settings file.
   - in manage.py insert the following code:
    ```
