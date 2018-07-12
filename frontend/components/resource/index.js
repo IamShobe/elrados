@@ -1,5 +1,4 @@
 import React from "react";
-import {connect} from "react-redux";
 
 import {Data} from "../data";
 import Lock from "../fields/lock";
@@ -10,17 +9,15 @@ const RESERVED_TITLE_COLOR = "#ffd413";
 const OWNER_TITLE_COLOR = "#e13b39";
 
 export class Resource extends Data {
-    constructor(props) {
-        super(props);
-
-        this.title_expension = this.title_expension.concat([
+    get filter_list() {
+        return ["owner", "reserved", "is_available", "name"].concat(super.filter_list);
+    }
+    get titleExpensionAfter() {
+        return super.titleExpensionAfter.concat([
             <Lock key="Lock"
                   resourceName={this.getName.bind(this)}
                   isLocked={this.isLocked.bind(this)}/>
         ]);
-    }
-    get filter_list() {
-        return ["owner", "reserved", "is_available", "name"].concat(super.filter_list);
     }
     get fields() {
         const class_fields = [
@@ -34,20 +31,14 @@ export class Resource extends Data {
         return class_fields.concat(super.fields);
     }
     getName() {
-        return this.props.resources_cache[this.props.cache_type][this.props.id].name;
+        return this.cache.name;
     }
     isLocked() {
-        return (this.props.resources_cache[this.props.cache_type][this.props.id].owner ||
-                this.props.resources_cache[this.props.cache_type][this.props.id].reserved ||
-                !this.props.resources_cache[this.props.cache_type][this.props.id].is_available);
+        return (this.cache.owner || this.cache.reserved || !this.cache.is_available);
     }
     get titleType() {
-        const reserved =
-            this.props.resources_cache
-                [this.props.cache_type][this.props.id].reserved;
-        const owner =
-            this.props.resources_cache
-                [this.props.cache_type][this.props.id].owner;
+        const reserved = this.cache.reserved;
+        const owner = this.cache.owner;
         let status = "Available";
         if (owner) {
             status = "Currently Running";
@@ -59,12 +50,8 @@ export class Resource extends Data {
     }
 
     get titleColor() {
-        const reserved =
-            this.props.resources_cache
-                [this.props.cache_type][this.props.id].reserved;
-        const owner =
-            this.props.resources_cache
-                [this.props.cache_type][this.props.id].owner;
+        const reserved = this.cache.reserved;
+        const owner = this.cache.owner;
         let title_color = AVAILABLE_TITLE_COLOR;
         if (owner) {
             title_color = OWNER_TITLE_COLOR;
@@ -75,12 +62,8 @@ export class Resource extends Data {
     }
 
     getUserFieldName() {
-        const reserved =
-            this.props.resources_cache
-                [this.props.cache_type][this.props.id].reserved;
-        const owner =
-            this.props.resources_cache
-                [this.props.cache_type][this.props.id].owner;
+        const reserved = this.cache.reserved;
+        const owner = this.cache.owner;
         let user_field = "undefined";
         if (owner) {
             user_field = "owner";
@@ -91,12 +74,3 @@ export class Resource extends Data {
     }
 
 }
-
-const mapStateToProps = (state) => {
-    return {
-        resources_cache: state.cache.resources,
-        display_fields_cache: state.cache.display_list
-    };
-};
-
-export default connect(mapStateToProps)(Resource);

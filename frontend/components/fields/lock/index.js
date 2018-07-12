@@ -6,7 +6,7 @@ import lockSrc from "./img/lock.png";
 import unlockSrc from "./img/unlock.png";
 import "./index.css";
 
-class Lock extends React.Component {
+export class Lock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

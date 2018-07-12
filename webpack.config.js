@@ -4,6 +4,7 @@ module.exports = {
     devtool: "source-map",
     entry: "./frontend/index.js",
     output: {
+        library: 'elrados',
         filename: "bundle.js",
         path: path.resolve(__dirname, "src", "elrados", "frontend", "static")
     },

@@ -4,7 +4,7 @@ import "./index.css";
 
 const DEFAULT_FONT_SIZE = 12;
 
-class TextField extends React.Component {
+export class TextField extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,11 +13,18 @@ class TextField extends React.Component {
     }
 
     render() {
-        const value = typeof(this.props.field_name) === "function"?
+        let value = "";
+        try {
+            value = typeof(this.props.field_name) === "function"?
             this.props.resources_cache
-            [this.props.cache_type][this.props.object_id][this.props.field_name()] :
+                [this.props.cache_type][this.props.object_id][this.props.field_name()] :
             this.props.resources_cache
-            [this.props.cache_type][this.props.object_id][this.props.field_name];
+                [this.props.cache_type][this.props.object_id][this.props.field_name];
+        } catch(err) {
+            value = "Error";
+            console.error(`${err.message}. Object: `, this);
+        }
+
         return (
             <div className="TextField">
                 <div className="Name">{this.props.name}</div>

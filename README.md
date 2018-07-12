@@ -12,10 +12,12 @@ Rotest Frontend application.
     INIT_LIST = [CalculatorData]  # import here any resource model data you wish.
     if sys.argv[1] == "runserver":
         if os.environ.get("RUN_MAIN") == "true":
+            import elrados.backend.main
             backend = elrados.backend.main.WebsocketService(settings={
-                "default_resource": "CalculatorData"  # here you choose the default shown data type
+                "default_resource": "CalculatorData"
             })
             backend.create_server(INIT_LIST)
+            from django.db.models.signals import post_save
             post_save.connect(backend.send_to_client)
    ```
 

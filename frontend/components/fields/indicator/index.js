@@ -1,8 +1,9 @@
 import React from "react";
+import {connect} from "react-redux";
 
 import "./index.css";
 
-export class IndicatorField extends React.Component {
+export class Indicator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,3 +22,12 @@ export class IndicatorField extends React.Component {
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        resources_cache: state.cache.resources,
+    };
+};
+
+export default connect(mapStateToProps)(Indicator);
