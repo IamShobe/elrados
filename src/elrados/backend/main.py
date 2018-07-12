@@ -12,7 +12,7 @@ import django
 import crochet
 from twisted.internet import reactor
 
-from rotest.backend.management import BroadcastServerFactory
+from elrados.backend.management import BroadcastServerFactory
 
 crochet.setup()
 django.setup()
