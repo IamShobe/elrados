@@ -1,8 +1,8 @@
 .Lock {
-    position: absolute;
-    right: 15px;
-    top: 10px;
     cursor: pointer;
     width: 40px;
     height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
 }

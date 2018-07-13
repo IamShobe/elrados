@@ -12,7 +12,7 @@ export class Resource extends Data {
     get filter_list() {
         return ["owner", "reserved", "is_available", "name"].concat(super.filter_list);
     }
-    get titleExpensionAfter() {
+    get titleExpensionBefore() {
         return super.titleExpensionAfter.concat([
             <Lock key="Lock"
                   resourceName={this.getName.bind(this)}

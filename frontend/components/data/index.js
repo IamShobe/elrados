@@ -22,6 +22,12 @@ export class Data extends React.Component {
     get titleExpensionAfter() {
         return [];
     }
+    get titleDetailsExpensionBefore() {
+        return [];
+    }
+    get titleDetailsExpensionAfter() {
+        return [];
+    }
     get contentExpensionBefore() {
         return [];
     }
@@ -41,6 +47,29 @@ export class Data extends React.Component {
     get titleType() {
         return this.state.name;
     }
+    get title() {
+        return (
+        <div className="Title" style={{backgroundColor: this.titleColor}}>
+                {this.titleExpensionBefore}
+                <div className="Details">
+                    {this.titleDetailsExpensionBefore}
+                    <div className="Name">
+                        <span>
+                            {this.cache.name}
+                        </span>
+                    </div>
+                    <div className="Type">{this.titleType}</div>
+                    {this.titleDetailsExpensionAfter}
+                </div>
+                <div className="Indicators">
+                    {this.indicators}
+                </div>
+                {this.titleExpensionAfter}
+            </div>
+        );
+    }
+
+    
     get cache() {
         return this.props.resources_cache[this.props.cache_type][this.props.id];
     }
@@ -69,19 +98,7 @@ export class Data extends React.Component {
     render() {
         return (
         <div className="MainData">
-            <div className="Title" style={{backgroundColor: this.titleColor}}>
-                {this.titleExpensionBefore}
-                <div className="Type">{this.titleType}</div>
-                <div className="Name">
-                    <span>
-                        {this.cache.name}
-                    </span>
-                </div>
-                <div className="Indicators">
-                    {this.indicators}
-                </div>
-                {this.titleExpensionAfter}
-            </div>
+            {this.title}
             <div className="Content">
                 {this.contentExpensionBefore}
                 <div className="ContentDetails">
