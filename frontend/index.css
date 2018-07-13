@@ -31,7 +31,7 @@ html, body {
 .App .DatasContainer{
     flex: auto;
     margin: auto;
-    padding: 10px;
+    /*padding: 10px;*/
     position: relative;
     flex-wrap: wrap;
     display: flex;

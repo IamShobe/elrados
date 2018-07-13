@@ -69,7 +69,7 @@ export class Data extends React.Component {
         );
     }
 
-    
+
     get cache() {
         return this.props.resources_cache[this.props.cache_type][this.props.id];
     }
