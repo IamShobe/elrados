@@ -22,6 +22,7 @@ html, body {
 }
 .App > .AppContent{
     height: 100%;
+    width: 100%;
     margin: auto;
     display: flex;
     box-sizing: border-box;
@@ -33,7 +34,7 @@ html, body {
     padding: 10px;
     position: relative;
     flex-wrap: wrap;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
 }
 

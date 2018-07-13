@@ -17,6 +17,7 @@
 .ToolBar {
     background-color: #3f5d69;
     word-break: break-all;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 .ToolBar .Category {
     width: 200px;
@@ -75,12 +76,13 @@
     width: 5px;
     height: 100%;
     position: absolute;
-    background-color: #5f707b;
+    background-color: #667d89;
     left: 18px;
 }
 .ToolBar .Category .Options .OptionsContainer {
     transition: 0.5s;
     overflow-y: auto;
+    background-color: #4d6b77;
 }
 .ToolBar .Category .Options .OptionsContainer .Option {
     min-height: 25px;
@@ -98,7 +100,7 @@
     width: 5px;
     height: 5px;
     border-radius: 5px;
-    background-color: #7e919c;
+    background-color: #8799a2;
 }
 .ToolBar .Category .Options .OptionsContainer .Option .Decore span {
     flex-shrink: 1;
