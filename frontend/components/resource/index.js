@@ -4,9 +4,9 @@ import {Data} from "../data";
 import Lock from "../fields/lock";
 import TextField from "../fields/text_field";
 
-const AVAILABLE_TITLE_COLOR = "#96ff77";
-const RESERVED_TITLE_COLOR = "#ffd413";
-const OWNER_TITLE_COLOR = "#e13b39";
+const AVAILABLE_TITLE_COLOR = "#4CAF50";
+const RESERVED_TITLE_COLOR = "#FFEB3B";
+const OWNER_TITLE_COLOR = "#f44336";
 
 export class Resource extends Data {
     get filter_list() {

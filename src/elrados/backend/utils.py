@@ -67,8 +67,8 @@ def expand_resource(resource):
                 if isinstance(sub_element, models.Model):
                     new_list.append({
                         "link": {
-                            "id": get_object_id(field_value),
-                            "type": get_leaf(field_value).__class__.__name__
+                            "id": get_object_id(sub_element),
+                            "type": get_leaf(sub_element).__class__.__name__
                         }
                     })
 

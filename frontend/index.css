@@ -1,4 +1,9 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url("JosefinSans-Regular.ttf");
+}
 html, body {
+    font-family: 'Roboto', sans-serif;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -10,14 +15,34 @@ html, body {
 }
 
 .App {
+    background-color: #f9f9f9;
     box-sizing: border-box;
+    position: relative;
+    display: flex;
 }
-
-.App, .DatasContainer{
+.App > .AppContent{
+    height: 100%;
+    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.App .DatasContainer{
+    flex: auto;
     margin: auto;
     padding: 10px;
-    width: calc(100% - 20px);
+    position: relative;
     flex-wrap: wrap;
-    display: flex;
-    justify-content: space-around;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

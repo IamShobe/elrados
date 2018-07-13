@@ -1,0 +1,108 @@
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #5e8492;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #283844;
+}
+
+
+.ToolBar {
+    background-color: #3f5d69;
+    word-break: break-all;
+}
+.ToolBar .Category {
+    width: 200px;
+    position: relative;
+}
+.ToolBar .Category img {
+    width: 20px;
+    height: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+}
+.ToolBar .Category span {
+    color: #e8e8e8;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.ToolBar .Category .CategoryTitle {
+    min-height: 30px;
+    display: flex;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.ToolBar .Category .CategoryTitle:hover {
+    background-color: #5c818d;
+}
+.ToolBar .Category .CategoryTitle .Details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.ToolBar .Category .CategoryTitle .Details .Name {
+
+}
+.ToolBar .Category .CategoryTitle .Details .CurrentSelection {
+    color: #b2b2b2;
+    font-size: 10pt;
+    padding-left: 10px;
+}
+
+.ToolBar .Category .CategoryTitle .ShowHide {
+    margin-top: auto;
+    margin-bottom: auto;
+    transform: scale(1, 1);
+    transition: 0.5s;
+    transform-origin: 10px 10px;
+}
+
+.ToolBar .Category .Options {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.ToolBar .Category .Options .DecoreBar {
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    background-color: #5f707b;
+    left: 18px;
+}
+.ToolBar .Category .Options .OptionsContainer {
+    transition: 0.5s;
+    overflow-y: auto;
+}
+.ToolBar .Category .Options .OptionsContainer .Option {
+    min-height: 25px;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+}
+.ToolBar .Category .Options .OptionsContainer .Option .Decore {
+    flex-basis: 40px;
+    display: flex;
+    flex-shrink: 0;
+}
+.ToolBar .Category .Options .OptionsContainer .Option .Decore .Dot {
+    margin: auto;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #7e919c;
+}
+.ToolBar .Category .Options .OptionsContainer .Option .Decore span {
+    flex-shrink: 1;
+}
+.ToolBar .Category .Options .OptionsContainer .Option:hover {
+    background-color: #517480;
+}

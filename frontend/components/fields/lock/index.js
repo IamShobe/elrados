@@ -2,8 +2,8 @@ import axios from "axios";
 import React from "react";
 import {connect} from "react-redux";
 
-import lockSrc from "./img/lock.png";
-import unlockSrc from "./img/unlock.png";
+import lockSrc from "./img/lock.svg";
+import unlockSrc from "./img/unlock.svg";
 import "./index.css";
 
 export class Lock extends React.Component {

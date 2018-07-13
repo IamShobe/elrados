@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import {Provider, connect} from "react-redux";
 
 import store from "./store";
-import {bindDataTypeToStore} from "./store";
+import {bindDataTypeToStore, followLink} from "./store";
 import {updateResourcesData, updateDisplayList} from "./store/actions/data_actions";
 import { CallbackWebSocket } from "./websocket";
 
 import {Data} from "./components/data";
 import {Resource} from "./components/resource";
+
+import ToolBar from "./components/toolbar";
 
 
 import _api from "./api";
@@ -20,8 +22,10 @@ export const api = _api;
 class App extends React.Component {
     constructor(props) {
         super(props);
+        const url = new URL(window.location);
         this.state = {
-            current_resource: undefined
+            current_resource: url.searchParams.get("resource"),
+            group_filter: url.searchParams.get("group")
         };
         new CallbackWebSocket((data)=>{
             console.log(data);
@@ -37,7 +41,10 @@ class App extends React.Component {
 
                 case "initialize-settings":
                     this.setState({
-                        current_resource: data.content.default_resource
+                        ...this.state,
+                        default_resource: data.content.default_resource,
+                        current_resource: this.state.current_resource?
+                            this.state.current_resource : data.content.default_resource
                     });
                     break;
 
@@ -45,7 +52,19 @@ class App extends React.Component {
                     console.log(`can't route the event: ${data.event_type}`);
                     break;
             }
-
+        });
+    }
+    changeData(dataName) {
+        this.setState({
+            ...this.state,
+            current_resource: !dataName || dataName === "None"?
+                this.state.default_resource : dataName
+        });
+    }
+    changeGroup(groupName) {
+        this.setState({
+            ...this.state,
+            group_filter: groupName
         });
     }
     get currentData() {
@@ -59,6 +78,12 @@ class App extends React.Component {
             const component = bindDataTypeToStore(resourceType);
             if (this.props.cache.resources[this.state.current_resource]) {
                 for (let data of Object.values(this.props.cache.resources[this.state.current_resource])) {
+                    const group = followLink(data.group);
+                    if(this.state.group_filter && this.state.group_filter !== "None") {
+                        if (!group || group.name !== this.state.group_filter) {
+                            continue;
+                        }
+                    }
                     datas.push(
                         React.createElement(component,
                             {
@@ -75,10 +100,22 @@ class App extends React.Component {
         return datas;
     }
     render() {
+        let data = this.currentData;
+        if (data.length === 0) {
+            data = (
+                <span style={{fontSize: "30pt", textAlign: "center"}}>
+                    There is no data to display
+                    <br/>
+                    for group "{this.state.group_filter}" and data type of "{this.state.current_resource}"
+                </span>);
+        }
         return (
         <div className="App">
-            <div className="DatasContainer">
-                {this.currentData}
+            <ToolBar currentResource={this.state.current_resource} currentGroup={this.state.group_filter}/>
+            <div className="AppContent">
+                <div className="DatasContainer">
+                    {data}
+                </div>
             </div>
         </div>);
     }

@@ -25,6 +25,15 @@ module.exports = {
                 }
             },
             {
+                test: /\.(ttf)$/i,
+                loader: "file-loader",
+                options: {
+                    name: "[name].[ext]",
+                    outputPath: "font/",
+                    publicPath: "static/font/"
+                }
+            },
+            {
                 test: /\.css$/,
                 loaders: ["style-loader", "css-loader"]
             }
