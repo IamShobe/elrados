@@ -46,7 +46,7 @@ export class Resource extends Data {
             status = "Reserved";
         }
 
-        return `${this.state.name} - ${status}`
+        return status;
     }
 
     get titleColor() {
