@@ -49,7 +49,7 @@ export class Data extends React.Component {
     }
     get title() {
         return (
-        <div className="Title" style={{backgroundColor: this.titleColor}}>
+            <div className="Title" style={{backgroundColor: this.titleColor}}>
                 {this.titleExpensionBefore}
                 <div className="Details">
                     {this.titleDetailsExpensionBefore}
