@@ -14,7 +14,7 @@ class Cache(object):
         self.display_list_cache = {}
 
     def initialize_display_list_cache(self, display_list):
-        print("initialize display list cache")
+        print("[Frontend] initializing display list cache")
         self.display_list_cache = display_list
 
     def _insert_resource_to_cache(self, resource):
@@ -27,7 +27,7 @@ class Cache(object):
         self.resources_cache[resource_name] = utils.get_resource_data(resource)
 
     def initialize_resources_cache(self, resources):
-        print("initialize resources cache")
+        print("[Frontend] initializing resources cache")
         threads = []
         for resource in resources:
             resource_name = str(resource.__name__)
@@ -69,7 +69,7 @@ class Cache(object):
         del kwargs["signal"]
         resource_id = utils.get_object_id(resource)
         resource_name = str(utils.get_leaf(resource).__class__.__name__)
-        print("Updating resource {}".format(resource_name))
+        print("[Frontend] Updating resource {}".format(resource_name))
         if resource_name == "LogEntry":
             if resource.action_flag == DELETE_ACTION_FLAG:
                 self.delete_from_resources_cache(resource_id)
@@ -104,4 +104,4 @@ class Cache(object):
             }
             ), False)
 
-        print("Sent to all users")
+        print("[Frontend] Sent to all registered users")

@@ -33,16 +33,17 @@ class BroadcastServerFactory(WebSocketServerFactory):
         self.settings = settings if settings is not None else {}
 
     def initialize_resources(self, resources):
-        self.cache.initialize_resources_cache(resources)
         display_attrs = {
             resource.__name__: admin.site._registry[resource].list_display
             for resource in resources
         }
         self.cache.initialize_display_list_cache(display_attrs)
+        self.cache.initialize_resources_cache(resources)
 
         # send to all users the extracted resources
         self.cache.update_users_display_list()
         self.cache.update_users_resources_cache()
+        print("[Frontend] Initialize done!")
 
     def broadcast(self, message, isBinary):
         for client in self.clients:
