@@ -1,3 +1,4 @@
+"""Backend utils module."""
 import json
 
 from django.db import models
@@ -105,4 +106,3 @@ def get_resource_data(resource_type):
         data_dict[get_object_id(resource)] = expand_resource(resource)
 
     return data_dict
-

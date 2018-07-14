@@ -7,14 +7,15 @@ from rotest.management.models.resource_data import ResourceData
 
 
 def get_client_ip(request):
-    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")  # get forward ip
+    """Get client's ip address."""
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")  # forward ip
     if x_forwarded_for:
-        ip = x_forwarded_for.split(",")[0]
+        ip_address = x_forwarded_for.split(",")[0]
 
     else:
-        ip = request.META.get("REMOTE_ADDR")
+        ip_address = request.META.get("REMOTE_ADDR")
 
-    return ip
+    return ip_address
 
 
 def lock_resource(request, data_name):
@@ -36,6 +37,7 @@ def set_field(field_name):
         function. a function that allows to set a value of a given field.
     """
 
+    # pylint: disable=unused-argument
     def set_resource_field(request, data_name, value=""):
         """"Entry point for removing any field from a resource.
 
@@ -48,6 +50,7 @@ def set_field(field_name):
         Returns:
             JsonResponse. the components that were changed.
         """
+        # pylint: disable=no-member
         effected_resource_head = \
             ResourceData.objects.filter(name=data_name)[0]
         effected_resources = _field_set_recursively(effected_resource_head,

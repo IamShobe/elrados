@@ -1,17 +1,19 @@
+"""Server Management tools."""
+# pylint: disable=superfluous-parens
+# pylint: disable=no-member
+# pylint: disable=protected-access
+# pylint: disable=invalid-name
 import json
 
 from django.contrib import admin
-from autobahn.twisted.websocket import WebSocketServerProtocol, WebSocketServerFactory
+from autobahn.twisted.websocket import (WebSocketServerProtocol,
+                                        WebSocketServerFactory)
 
-from cache import Cache
+from elrados.backend.cache import Cache
 
 
 class BroadcastServerProtocol(WebSocketServerProtocol):
-    """"Protocol for a Websocket server which broadcasts messages to clients."""
-
-    def __init__(self, *args, **kwargs):
-        super(BroadcastServerProtocol, self).__init__(*args, **kwargs)
-
+    """"Protocol for a Websocket server which broadcasts messages to clients"""
     def onOpen(self):
         """"Register the client for future broadcasts."""
         super(BroadcastServerProtocol, self).onOpen()
@@ -24,6 +26,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
 
 
 class BroadcastServerFactory(WebSocketServerFactory):
+    """Broadcast server factory of the websocket."""
     protocol = BroadcastServerProtocol
 
     def __init__(self, url, settings=None):
@@ -33,10 +36,11 @@ class BroadcastServerFactory(WebSocketServerFactory):
         self.settings = settings if settings is not None else {}
 
     def initialize_resources(self, resources):
+        """Initialize cache resources."""
         display_attrs = {
             resource.__name__: admin.site._registry[resource].list_display
             for resource in resources
-        }
+            }
         self.cache.initialize_display_list_cache(display_attrs)
         self.cache.initialize_resources_cache(resources)
 
@@ -46,10 +50,12 @@ class BroadcastServerFactory(WebSocketServerFactory):
         print("[Frontend] Initialize done!")
 
     def broadcast(self, message, isBinary):
+        """Broadcast a message to the clients."""
         for client in self.clients:
             client.sendMessage(message, isBinary=isBinary)
 
     def register(self, client):
+        """Register new user to the websocket and initialize its data."""
         self.clients.add(client)
         client.sendMessage(json.dumps(
             {
@@ -58,17 +64,18 @@ class BroadcastServerFactory(WebSocketServerFactory):
                 }
             ), False)
         client.sendMessage(json.dumps(
-                {
-                    "event_type": "initialize-display-list",
-                    "content": self.cache.display_list_cache
+            {
+                "event_type": "initialize-display-list",
+                "content": self.cache.display_list_cache
                 }
             ), False)
         client.sendMessage(json.dumps(
-                {
-                    "event_type": "initialize-cache",
-                    "content": self.cache.resources_cache
+            {
+                "event_type": "initialize-cache",
+                "content": self.cache.resources_cache
                 }
             ), False)
 
     def unregister(self, client):
+        """Unregister user from the websocket."""
         self.clients.remove(client)

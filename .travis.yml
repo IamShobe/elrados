@@ -4,11 +4,11 @@ stages:
 language: python
 python:
 - '2.7'
-- '3.6'
+install: pip install tox
+script: tox
 jobs:
   include:
   - stage: deploy
-    python: '3.6'
     install: skip
     script: skip
     before_script: npm install && npm run build
