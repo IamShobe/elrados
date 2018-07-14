@@ -3,25 +3,9 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "3.0.3"
+__version__ = "0.1.0"
 
 requirements = [
-    'django>=1.7,<1.8',
-    'ipdb',
-    'py',
-    'isort',
-    'ipdbugger>=1.1.2',
-    'docopt',
-    'lxml<4.0.0',
-    'xlwt',
-    'attrdict',
-    'pyyaml',
-    'twisted',
-    'psutil',
-    'colorama',
-    'termcolor',
-    'jsonschema',
-    'basicstruct',
     'crochet',
     'autobahn',
     'rotest'
