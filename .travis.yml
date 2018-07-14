@@ -1,0 +1,24 @@
+stages:
+- name: deploy
+  if: tag IS present
+language: python
+python:
+- '2.7'
+- '3.6'
+jobs:
+  include:
+  - stage: deploy
+    python: '3.6'
+    install: skip
+    script: skip
+    before_script: npm install && npm run build
+    deploy:
+      stage: deploy
+      skip_cleanup: true
+      provider: pypi
+      on:
+        tags: true
+      distributions: sdist bdist_wheel
+      user: IamShobe
+      password:
+        secure: 19Ofzl+Qtr5yXh+UF3xOseLdU3neYlxNqRMB1JvUQu/rgQMK3dru66LjThaTUrppZmimTezfa4FsDI0F2ZUVRDJXPpVryupq0MpeWqLVrQZGj5ZM9xCZ+V8VqS2Uxw9jHfAFghkjYLszIT9HYH/HA9FCFadUSjVTzgSu3M//Wuqp3Vz79HWxZGdRHboHTfAbYRbUXwrk0jrzdKHlzw6pGtkTCB+ENx3ufwCtV9xr+WfPMHviRyUljFLrP1eyeLTmyZfNXIklESG5ydPB0k3dnZl7+p2QtPCSGvqLwL5G0j1p0YRhwv0Fo1Vn+kKG8UT0pi/BsgD9mPxmkVd7X6ldsOrbeXs+0nDoTmKDp+Z1cBQLy6UmsBuK9jIZ8WDNbYukZZXlTetzxbksxr++exmXxvH3F1fcPrth8hvU2TMq61DX1YXheMoukxg1MzgdkUGUDJRG+mm9/F0EVAzVw3BIfZOO3Od0bUsDdlDsvzYzqJLTcQ3Hj8C2VHgf9VTK5qQvHLNFnWsEX2rdOC4oUNnKXget4AEipUjvbIUrKRVRi7QropF5wv6OA81j1BA24KZf149OuRwPCupuyLKHiQdU8xVpYUI2PLUfPMSTx3GM5Pwb28n98dgvtPxLGrPiyK8I6PBRE1DmyWMLaRzcl1eoz5DPFSlawCTH9Na9SeM0CYE=
