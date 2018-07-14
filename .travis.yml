@@ -1,4 +1,5 @@
 stages:
+- test
 - name: deploy
   if: tag IS present
 language: python
