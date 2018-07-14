@@ -1,5 +1,6 @@
 # elrados
-
+[![PyPI](https://badge.fury.io/py/elrados.svg)](https://pypi.python.org/pypi/elrados)
+[![Build Status](https://travis-ci.com/IamShobe/elrados.svg?branch=master)](https://travis-ci.com/IamShobe/elrados)
 Rotest Frontend application.
 
 
