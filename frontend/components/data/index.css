@@ -4,7 +4,7 @@
     margin: 8px;
     display: inline-flex;
     flex-direction: column;
-    min-width: 300px;
+    min-width: 380px;
     background-color: #f0eaed;
     min-height: 200px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);

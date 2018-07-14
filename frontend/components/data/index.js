@@ -97,7 +97,7 @@ export class Data extends React.Component {
 
     render() {
         return (
-        <div className="MainData">
+        <div className="MainData" style={{width: this.props.width}}>
             {this.title}
             <div className="Content">
                 {this.contentExpensionBefore}

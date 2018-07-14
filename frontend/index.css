@@ -24,18 +24,18 @@ html, body {
     height: 100%;
     width: 100%;
     margin: auto;
-    display: flex;
+    display: inline-flex;
+    flex-direction: column;
     box-sizing: border-box;
-    overflow-y: auto;
 }
 .App .DatasContainer{
-    flex: auto;
     margin: auto;
     /*padding: 10px;*/
     position: relative;
+    display: inline-flex;
     flex-wrap: wrap;
-    display: flex;
-    justify-content: center;
+    overflow-y: auto;
+    /*justify-content: center;*/
 }
 
 .noselect {

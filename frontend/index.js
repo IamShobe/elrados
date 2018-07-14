@@ -25,8 +25,10 @@ class App extends React.Component {
         const url = new URL(window.location);
         this.state = {
             current_resource: url.searchParams.get("resource"),
-            group_filter: url.searchParams.get("group")
+            group_filter: url.searchParams.get("group"),
+            items_in_line: 0
         };
+        this.container = React.createRef();
         new CallbackWebSocket((data)=>{
             console.log(data);
             switch (data.event_type) {
@@ -53,6 +55,32 @@ class App extends React.Component {
                     break;
             }
         });
+        window.addEventListener("resize", this.rerenderIfChange.bind(this))
+    }
+
+    componentDidMount() {
+        this.rerenderIfChange();
+    }
+    rerenderIfChange() {
+        const items_in_line = this.calculate_items_in_line();
+        if(items_in_line !== this.state.items_in_line) {
+            this.setState({
+                ...this.state,
+                items_in_line: items_in_line
+            });
+        }
+    }
+    calculate_items_in_line() {
+        const container = this.container.current;
+        const min_width = 380;
+        const max_in_line = 4;
+        if(container) {
+            const width = container.offsetWidth;
+            const data_in_line = Math.floor(width / (min_width + 20));
+            return data_in_line > max_in_line ? max_in_line : data_in_line;
+        }
+
+        return 0;
     }
     changeData(dataName) {
         this.setState({
@@ -68,6 +96,7 @@ class App extends React.Component {
         });
     }
     get currentData() {
+        const component_width = `calc(${100 / this.state.items_in_line}% - 16px)`;
         const datas = [];
         if( this.state.current_resource ) {
             let resourceType = this.state.current_resource.includes("Data")? Resource : Data;
@@ -87,12 +116,13 @@ class App extends React.Component {
                     datas.push(
                         React.createElement(component,
                             {
+                                width: component_width,
                                 key: data.id,
                                 id: data.id,
                                 cache_type: this.state.current_resource
                             }
                         )
-                    )
+                    );
 
                 }
             }
@@ -112,7 +142,7 @@ class App extends React.Component {
         return (
         <div className="App">
             <ToolBar currentResource={this.state.current_resource} currentGroup={this.state.group_filter}/>
-            <div className="AppContent">
+            <div className="AppContent" ref={this.container}>
                 <div className="DatasContainer">
                     {data}
                 </div>
