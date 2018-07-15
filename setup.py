@@ -3,7 +3,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.3.0"
+__version__ = "0.4.1"
 
 requirements = [
     'django>=1.7,<1.8',
@@ -11,7 +11,7 @@ requirements = [
     'crochet',
     'autobahn',
     'rotest'
-]
+    ]
 
 if not sys.platform.startswith("win32"):
     requirements.append('python-daemon')
@@ -29,7 +29,10 @@ setup(
     python_requires="~=2.7.0",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    package_data={"elrados": ["frontend/static/**", "frontend/templates/**"]},
+    package_data={"elrados": ["frontend/static/*",
+                              "frontend/static/img/*",
+                              "frontend/static/font/*",
+                              "frontend/templates/*"]},
     zip_safe=False,
     classifiers=[
         'License :: OSI Approved :: MIT License',
@@ -39,5 +42,5 @@ setup(
         'Operating System :: POSIX',
         'Operating System :: Unix',
         'Operating System :: MacOS',
-    ],
-)
+        ],
+    )

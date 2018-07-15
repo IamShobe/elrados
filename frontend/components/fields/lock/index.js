@@ -24,8 +24,10 @@ export class Lock extends React.Component {
     }
     onClick() {
         if(this.isLocked) {
-            axios.get(`/api/elrados/release_owner/${this.resourceName}`);
-            axios.get(`/api/elrados/release_reserved/${this.resourceName}`);
+            axios.get(`/api/elrados/release_owner/${this.resourceName}`)
+            .then(()=>{
+               axios.get(`/api/elrados/release_reserved/${this.resourceName}`);
+            });
         } else {
             axios.get(`/api/elrados/lock_resource/${this.resourceName}`);
         }
