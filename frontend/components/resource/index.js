@@ -20,13 +20,15 @@ export class Resource extends Data {
         ]);
     }
     get fields() {
+        const field = {
+            cache_type: this.props.cache_type,
+            object_id: this.props.id,
+            field_name: this.getUserFieldName.bind(this)
+        };
         const class_fields = [
             <TextField name="User"
                        key="User"
-                       field_name={this.getUserFieldName.bind(this)}
-                       cache_type={this.props.cache_type}
-                       object_id={this.props.id}
-            />
+                       fields={[field]}/>
         ];
         return class_fields.concat(super.fields);
     }

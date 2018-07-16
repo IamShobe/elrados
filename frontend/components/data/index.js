@@ -74,11 +74,14 @@ export class Data extends React.Component {
         return this.props.resources_cache[this.props.cache_type][this.props.id];
     }
     static getField(cache_type, object_id, field_name) {
+        const field = {
+            cache_type,
+            object_id,
+            field_name
+        };
         return <TextField key={field_name}
                           name={field_name}
-                          field_name={field_name}
-                          cache_type={cache_type}
-                          object_id={object_id}/>;
+                          fields={[field]}/>;
     }
 
     getAllFields(fields_names) {

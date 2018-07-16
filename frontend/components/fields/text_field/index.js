@@ -13,25 +13,44 @@ export class TextField extends React.Component {
     }
 
     render() {
-        let value = "";
+        let value = [];
         try {
-            value = typeof(this.props.field_name) === "function"?
-            this.props.resources_cache
-                [this.props.cache_type][this.props.object_id][this.props.field_name()] :
-            this.props.resources_cache
-                [this.props.cache_type][this.props.object_id][this.props.field_name];
+            for (let field of this.props.fields) {
+                let current_value = "-";
+                let classname = "";
+                if (typeof(field) === "function") {
+                    let field_values = field();
+                    value = field_values.value;
+                    classname = field_values.className;
+                } else {
+                    if (typeof(field.field_name) === "function") {
+                        current_value = this.props.resources_cache
+                            [field.cache_type][field.object_id][field.field_name()];
+                    } else {
+                        current_value = this.props.resources_cache
+                            [field.cache_type][field.object_id][field.field_name];
+                    }
+                    if(field.className) {
+                        classname = field.className;
+                    }
+                }
+                value.push(
+                    <span className={`SubValue ${classname}`}>
+                        <span style={{fontSize: this.state.fontSize}}>
+                            {current_value !== undefined && current_value !== "" ?
+                                current_value : "-"}
+                        </span>
+                    </span>);
+            }
         } catch(err) {
             value = "Error";
             console.error(`${err.message}. Object: `, this);
         }
-
         return (
             <div className="TextField">
                 <div className="Name">{this.props.name}</div>
                 <div className="Value">
-                    <span style={{fontSize: this.state.fontSize}}>
-                        {value !== undefined && value !== "" ? value.toString() : "-"}
-                    </span>
+                    {value}
                 </div>
             </div>
         );

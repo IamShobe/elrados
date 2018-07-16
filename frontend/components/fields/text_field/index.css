@@ -16,9 +16,12 @@
 .TextField .Value {
     padding-left: 20px;
     border-bottom: 1px solid gray;
+    display: flex;
 }
-
-.TextField .Value > span {
+.TextField .Value .SubValue:not(:last-child) {
+    margin-right: 10px;
+}
+.TextField .Value span {
     display: flex;
     flex-wrap: wrap;
 }
