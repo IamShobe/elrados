@@ -20,7 +20,7 @@ export class TextField extends React.Component {
                 let classname = "";
                 if (typeof(field) === "function") {
                     let field_values = field();
-                    value = field_values.value;
+                    current_value = field_values.value;
                     classname = field_values.className;
                 } else {
                     if (typeof(field.field_name) === "function") {
@@ -35,7 +35,7 @@ export class TextField extends React.Component {
                     }
                 }
                 value.push(
-                    <span className={`SubValue ${classname}`}>
+                    <span key={value.length} className={`SubValue ${classname}`}>
                         <span style={{fontSize: this.state.fontSize}}>
                             {current_value !== undefined && current_value !== "" ?
                                 current_value : "-"}
