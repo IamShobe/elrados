@@ -50,7 +50,7 @@ export class TextField extends React.Component {
             <div className="TextField">
                 <div className="Name">{this.props.name}</div>
                 <div className="Value">
-                    {value}
+                    {value.length > 0 ? value : "-"}
                 </div>
             </div>
         );
