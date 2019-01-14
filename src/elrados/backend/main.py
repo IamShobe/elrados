@@ -1,22 +1,12 @@
-"""
-if sys.argv[1] == "runserver":
-    if os.environ.get("RUN_MAIN") == "true":
-        # dispatch resources to user
-        backend = elrados.backend.main.WebsocketService()
-        backend.create_server(INIT_LIST)
-        # register post_save signal to backend
-        post_save.connect(backend.send_to_client)
-"""
+"""Elrados web-socket server starter."""
 # pylint: disable=superfluous-parens
 # pylint: disable=no-member
 # pylint: disable=protected-access
 # pylint: disable=invalid-name
-import django
 import os
 
 import crochet
 from twisted.internet import reactor
-from rotest.management import BaseResource
 from rotest.common.config import SHELL_APPS
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User, Group
@@ -49,8 +39,8 @@ def setup_server():
     crochet.setup()
     resource_models = [User, Group]
     for application in SHELL_APPS:
-        resource_models.extend(resource.DATA_CLASS
-                               for resource in get_resources(application).values()
+        resource_models.extend(resource.DATA_CLASS for resource in
+                               get_resources(application).values()
                                if resource.DATA_CLASS is not None)
 
     if os.environ.get("RUN_MAIN") == "true":
@@ -58,4 +48,5 @@ def setup_server():
             "default_resource": resource_models[-1].__name__
         })
         backend.create_server(resource_models)
-        post_save.connect(backend.send_to_client, sender='management.ResourceData', weak=False)
+        post_save.connect(backend.send_to_client,
+                          sender='management.ResourceData', weak=False)
