@@ -7,9 +7,9 @@ import os
 
 import crochet
 from twisted.internet import reactor
-from rotest.common.config import SHELL_APPS
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User, Group
+from rotest.common.config import SHELL_APPS
 from rotest.management.utils.resources_discoverer import get_resources
 
 from elrados.backend.management import BroadcastServerFactory
@@ -36,6 +36,7 @@ class WebsocketService(object):
 
 
 def setup_server():
+    """Start the websocket server."""
     crochet.setup()
     resource_models = [User, Group]
     for application in SHELL_APPS:
