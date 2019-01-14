@@ -3,10 +3,10 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.5.3"
+__version__ = "0.6.0"
 
 requirements = [
-    'django>=1.7,<1.8',
+    'django>=1.8,<1.9',
     'twisted',
     'crochet',
     'autobahn',
@@ -29,10 +29,10 @@ setup(
     python_requires="~=2.7.0",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    package_data={"elrados": ["frontend/static/*",
-                              "frontend/static/img/*",
-                              "frontend/static/font/*",
-                              "frontend/templates/*"]},
+    package_data={"elrados": ["static/*",
+                              "static/img/*",
+                              "static/font/*",
+                              "templates/*"]},
     zip_safe=False,
     classifiers=[
         'License :: OSI Approved :: MIT License',
@@ -43,4 +43,8 @@ setup(
         'Operating System :: Unix',
         'Operating System :: MacOS',
         ],
-    )
+    entry_points={
+        "rotest.cli_server_actions":
+            ["elrados_server = elrados.backend.main:setup_server"],
+    },
+)

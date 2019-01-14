@@ -1,24 +1,19 @@
-"""
-if sys.argv[1] == "runserver":
-    if os.environ.get("RUN_MAIN") == "true":
-        # dispatch resources to user
-        backend = rotest.backend.main.WebsocketService()
-        backend.create_server(INIT_LIST)
-        # register post_save signal to backend
-        post_save.connect(backend.send_to_client)
-"""
+"""Elrados web-socket server starter."""
 # pylint: disable=superfluous-parens
 # pylint: disable=no-member
 # pylint: disable=protected-access
 # pylint: disable=invalid-name
-import django
+import os
+
 import crochet
 from twisted.internet import reactor
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User, Group
+from rotest.common.config import SHELL_APPS
+from rotest.management.utils.resources_discoverer import get_resources
 
 from elrados.backend.management import BroadcastServerFactory
 
-crochet.setup()
-django.setup()
 SERVER_PORT = 9000
 
 
@@ -38,3 +33,21 @@ class WebsocketService(object):
     def send_to_client(self, sender, instance, **kwargs):
         """Send update message to client."""
         self.factory.cache.update_resource(sender, instance, **kwargs)
+
+
+def setup_server():
+    """Start the websocket server."""
+    crochet.setup()
+    resource_models = [User, Group]
+    for application in SHELL_APPS:
+        resource_models.extend(resource.DATA_CLASS for resource in
+                               get_resources(application).values()
+                               if resource.DATA_CLASS is not None)
+
+    if os.environ.get("RUN_MAIN") == "true":
+        backend = WebsocketService(settings={
+            "default_resource": resource_models[-1].__name__
+        })
+        backend.create_server(resource_models)
+        post_save.connect(backend.send_to_client,
+                          sender='management.ResourceData', weak=False)

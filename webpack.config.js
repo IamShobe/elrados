@@ -6,7 +6,7 @@ module.exports = {
     output: {
         library: 'elrados',
         filename: "bundle.js",
-        path: path.resolve(__dirname, "src", "elrados", "frontend", "static")
+        path: path.resolve(__dirname, "src", "elrados", "static")
     },
     module: {
         rules: [
