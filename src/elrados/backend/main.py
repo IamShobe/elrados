@@ -58,4 +58,4 @@ def setup_server():
             "default_resource": resource_models[-1].__name__
         })
         backend.create_server(resource_models)
-        post_save.connect(backend.send_to_client, weak=False)
+        post_save.connect(backend.send_to_client, sender='management.ResourceData', weak=False)

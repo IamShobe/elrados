@@ -3,7 +3,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.5.3"
+__version__ = "0.6.0"
 
 requirements = [
     'django>=1.8,<1.9',
@@ -43,4 +43,8 @@ setup(
         'Operating System :: Unix',
         'Operating System :: MacOS',
         ],
+    entry_points={
+        "rotest.cli_server_actions":
+            ["elrados_server = elrados.backend.main:setup_server"],
+    },
 )
