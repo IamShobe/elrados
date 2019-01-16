@@ -53,7 +53,7 @@ def setup_server():
                           sender='management.ResourceData',
                           weak=False)
 
-        for resource_data im resource_models:
+        for resource_data in resource_models:
             post_save.connect(backend.send_to_client,
                               sender=resource_data,
                               weak=False)
