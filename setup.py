@@ -3,18 +3,15 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 requirements = [
     'django>=1.8,<1.9',
     'twisted',
     'crochet',
     'autobahn',
-    'rotest'
-    ]
-
-if not sys.platform.startswith("win32"):
-    requirements.append('python-daemon')
+    'rotest>=5.5.0',
+]
 
 setup(
     name='elrados',

@@ -50,4 +50,10 @@ def setup_server():
         })
         backend.create_server(resource_models)
         post_save.connect(backend.send_to_client,
-                          sender='management.ResourceData', weak=False)
+                          sender='management.ResourceData',
+                          weak=False)
+
+        for resource_data im resource_models:
+            post_save.connect(backend.send_to_client,
+                              sender=resource_data,
+                              weak=False)
