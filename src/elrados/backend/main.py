@@ -42,7 +42,7 @@ def setup_server():
     resource_models = [User, Group]
     for application in SHELL_APPS:
         resource_models.extend(
-            resource.DATA_CLASS 
+            resource.DATA_CLASS
             for resource in get_resources(application).values()
             if resource.DATA_CLASS not in (None, NotImplemented)
                 and issubclass(resource.DATA_CLASS, ResourceData))
