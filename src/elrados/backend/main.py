@@ -45,7 +45,7 @@ def setup_server():
             resource.DATA_CLASS
             for resource in get_resources(application).values()
             if resource.DATA_CLASS not in (None, NotImplemented)
-                and issubclass(resource.DATA_CLASS, ResourceData))
+            and issubclass(resource.DATA_CLASS, ResourceData))
 
     if os.environ.get("RUN_MAIN") == "true":
         backend = WebsocketService(settings={
