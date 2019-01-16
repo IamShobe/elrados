@@ -9,6 +9,7 @@ import crochet
 from twisted.internet import reactor
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User, Group
+from rotest.management import ResourceData
 from rotest.common.config import SHELL_APPS
 from rotest.management.utils.resources_discoverer import get_resources
 
@@ -42,7 +43,8 @@ def setup_server():
     for application in SHELL_APPS:
         resource_models.extend(resource.DATA_CLASS for resource in
                                get_resources(application).values()
-                               if resource.DATA_CLASS is not None)
+                               if isinstance(resource.DATA_CLASS,
+                                             ResourceData))
 
     if os.environ.get("RUN_MAIN") == "true":
         backend = WebsocketService(settings={
