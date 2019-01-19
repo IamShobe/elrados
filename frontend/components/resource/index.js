@@ -6,6 +6,7 @@ import TextField from "../fields/text_field";
 
 const AVAILABLE_TITLE_COLOR = "#4CAF50";
 const RESERVED_TITLE_COLOR = "#FFEB3B";
+const NOT_AVAILABLE_COLOR = "#E1e77d0";
 const OWNER_TITLE_COLOR = "#f44336";
 
 export class Resource extends Data {
@@ -59,6 +60,8 @@ export class Resource extends Data {
             title_color = OWNER_TITLE_COLOR;
         } else if (reserved) {
             title_color = RESERVED_TITLE_COLOR;
+        } else if (!this.cache.is_available) {
+            title_color = NOT_AVAILABLE_COLOR;
         }
         return title_color;
     }

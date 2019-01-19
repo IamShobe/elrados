@@ -109,7 +109,7 @@ class App extends React.Component {
                 for (let data of Object.values(this.props.cache.resources[this.state.current_resource])) {
                     const group = followLink(data.group);
                     if(this.state.group_filter && this.state.group_filter !== "None") {
-                        if (!group || group.name !== this.state.group_filter) {
+                        if (group && group.name !== this.state.group_filter) {
                             continue;
                         }
                     }

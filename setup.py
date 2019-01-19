@@ -3,7 +3,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.6.3"
+__version__ = "0.6.4"
 
 requirements = [
     'django>=1.8,<1.9',
@@ -23,7 +23,7 @@ setup(
     url="https://github.com/IamShobe/elrados",
     keywords="rotest frontend",
     install_requires=requirements,
-    python_requires="~=2.7.0",
+    python_requires=">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*",
     packages=find_packages("src"),
     package_dir={"": "src"},
     package_data={"elrados": ["static/*",
@@ -34,7 +34,12 @@ setup(
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
         'Operating System :: Unix',
