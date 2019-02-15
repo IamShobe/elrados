@@ -2,9 +2,6 @@ import React from "react";
 import { Motion, spring } from "react-motion";
 import {measureSubmenu} from "./utils";
 
-const OPEN_HEIGHT = 600;
-const CLOSE_HEIGHT = 0;
-
 import showhide_icon from "./open.svg";
 
 export class Category extends React.Component {
@@ -14,7 +11,6 @@ export class Category extends React.Component {
             isOpen: false,
             submenuMeasuredHeight: 0,
         };
-        this.op_container = React.createRef();
     }
     onClick(e) {
         this.setState({
