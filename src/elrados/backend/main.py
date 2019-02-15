@@ -39,6 +39,7 @@ class WebsocketService(object):
 
 
 def read_config():
+    """Read from rotest.yml config elrados segment."""
     config_path = search_config_file()
     if config_path is None:
         configuration_content = None
