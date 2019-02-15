@@ -1,6 +1,8 @@
 import React from "react";
+import { Motion, spring } from "react-motion";
+import {measureSubmenu} from "./utils";
 
-const OPEN_HEIGHT = 200;
+const OPEN_HEIGHT = 600;
 const CLOSE_HEIGHT = 0;
 
 import showhide_icon from "./open.svg";
@@ -10,7 +12,9 @@ export class Category extends React.Component {
         super(props);
         this.state = {
             isOpen: false,
+            submenuMeasuredHeight: 0,
         };
+        this.op_container = React.createRef();
     }
     onClick(e) {
         this.setState({
@@ -37,6 +41,11 @@ export class Category extends React.Component {
                 </div>
             );
         }
+
+        const { submenuMeasuredHeight } = this.state;
+        const submenuHeight =
+            this.state.isOpen ? measureSubmenu(this.submenuNode).height:0;
+
         return (
             <div className="Category">
                 <div className="CategoryTitle" onClick={this.onClick.bind(this)}>
@@ -51,9 +60,17 @@ export class Category extends React.Component {
                 </div>
                 <div className="Options">
                     <div className="DecoreBar"></div>
-                    <div className="OptionsContainer" style={{maxHeight: this.state.isOpen? OPEN_HEIGHT:CLOSE_HEIGHT}}>
-                        {render_options}
-                    </div>
+                    <Motion style={{ maxHeight: spring(submenuHeight, { stiffness: 350, damping: 30 }) }}>
+                        {interpolatedStyle => (
+                          <div
+                            ref={r => (this.submenuNode = r)}
+                            style={interpolatedStyle}
+                            className="OptionsContainer"
+                          >
+                            {render_options}
+                          </div>
+                        )}
+                      </Motion>
                 </div>
             </div>
         );

@@ -7,5 +7,12 @@
 </head>
 <body>
     {% include "base.html" %}
+    {% autoescape off %}
+    {% for plugin in plugins %}
+        <script>
+            {{plugin}}
+        </script>
+    {% endfor %}
+    {% endautoescape %}
 </body>
 </html>

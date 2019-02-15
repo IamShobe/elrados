@@ -6,6 +6,8 @@ from django.shortcuts import render
 
 def index(request):
     """Basic view."""
+    plugins = [plugin.load() for plugin in pkg_resources.iter_entry_points(group='elrados.plugins')]
+    print plugins
     return render(request, "index.html", {
-        "plugins": pkg_resources.iter_entry_points(group='elrados.plugins')
+        "plugins": plugins
     })

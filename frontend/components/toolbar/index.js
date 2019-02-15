@@ -50,6 +50,8 @@ class ToolBar extends React.Component {
         }
         return resources;
     }
+
+
     render() {
         return (
             <div className="ToolBar noselect">
