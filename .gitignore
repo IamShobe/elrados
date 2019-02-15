@@ -116,3 +116,5 @@ package-lock.json
 
 
 src/elrados/frontend/static/
+
+.vscode/

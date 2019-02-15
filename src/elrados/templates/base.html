@@ -1,3 +1,7 @@
 {% load staticfiles %}
 <div id="App"></div>
 <script src="{% static "bundle.js" %}"></script>
+
+{% for plugin in plugins %}
+    <script src="{{plugin}}"></script>
+{% endfor %}

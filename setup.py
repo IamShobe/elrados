@@ -48,5 +48,6 @@ setup(
     entry_points={
         "rotest.cli_server_actions":
             ["elrados_server = elrados.backend.main:setup_server"],
+        "elrados.plugins": ["plug = elrados.frontend.plugins.example_plugin"]
     },
 )
