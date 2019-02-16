@@ -7,18 +7,29 @@ Rotest Frontend application.
 ## How to start?
   - initialize new Django project.
   - follow [rotest guide](https://github.com/gregoil/rotest) to initialize resources.
-  - add elrados.frontend to django applications in your django settings file.
-  - in manage.py insert the following code:
-   ```
-    INIT_LIST = [CalculatorData]  # import here any resource model data you wish.
-    if sys.argv[1] == "runserver":
-        if os.environ.get("RUN_MAIN") == "true":
-            import elrados.backend.main
-            backend = elrados.backend.main.WebsocketService(settings={
-                "default_resource": "CalculatorData"
-            })
-            backend.create_server(INIT_LIST)
-            from django.db.models.signals import post_save
-            post_save.connect(backend.send_to_client)
-   ```
+  - add `elrados` to django applications in your django settings file.
+  - add `elrados.urls` to your urls file
+    ```
+    from django.conf.urls import include, url
+    from django.contrib import admin
 
+    urlpatterns = [
+        url(r'^', include("elrados.urls")),
+        url(r'^rotest/api/', include("rotest.api.urls")),
+        url(r'^admin/', include(admin.site.urls)),
+    ]
+    ```
+  - in your rotest.yml config file add `elrados` segment and `default_resource` segment:
+    ```
+    rotest:
+      host: localhost
+      api_base_url: rotest/api/
+      django_settings: rotest_demo.settings
+      shell_apps: [resources]
+
+    elrados:
+      default_resource: RulerData
+    ```
+    where `RulerData` is your default resource.
+
+You are now ready to go!
