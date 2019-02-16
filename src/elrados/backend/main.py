@@ -41,19 +41,16 @@ class WebsocketService(object):
 def read_config():
     """Read from rotest.yml config elrados segment."""
     config_path = search_config_file()
-    if config_path is None:
-        configuration_content = None
-    else:
+    if config_path is not None:
         with open(config_path, "r") as config_file:
             configuration_content = config_file.read()
 
-    yaml_configuration = yaml.load(configuration_content)
-    if "elrados" not in yaml_configuration:
-        return AttrDict({})
+        yaml_configuration = yaml.load(configuration_content)
 
-    yaml_configuration = yaml_configuration["elrados"]
+    else:
+        yaml_configuration = {}
 
-    return AttrDict(yaml_configuration)
+    return AttrDict(yaml_configuration.get("elrados", {}))
 
 
 def setup_server():
@@ -71,8 +68,8 @@ def setup_server():
             and issubclass(resource.DATA_CLASS, ResourceData))
 
     default_resource = config.get("default_resource", None)
-    default_resource = resource_models[-1].__name__ \
-        if default_resource is None else default_resource
+    if default_resource is None:
+        default_resource = resource_models[-1].__name__
 
     if os.environ.get("RUN_MAIN") == "true":
         backend = WebsocketService(settings={
