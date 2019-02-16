@@ -17,7 +17,15 @@
 .ToolBar {
     background-color: #3f5d69;
     word-break: break-all;
+    overflow-y: auto;
+    flex-shrink: 0;
+    overflow-x: none;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    display: flex;
+    flex-direction: column;
+}
+.ToolBar .Spacer{
+    flex: 1;
 }
 .ToolBar .Category {
     width: 200px;
@@ -71,6 +79,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: 0.5s;
 }
 .ToolBar .Category .Options .DecoreBar {
     width: 5px;
@@ -79,32 +88,31 @@
     background-color: #667d89;
     left: 18px;
 }
-.ToolBar .Category .Options .OptionsContainer {
-    transition: 0.5s;
+.OptionsContainer {
     overflow-y: auto;
     background-color: #4d6b77;
 }
-.ToolBar .Category .Options .OptionsContainer .Option {
+.OptionsContainer .Option {
     min-height: 25px;
     display: flex;
     cursor: pointer;
     position: relative;
 }
-.ToolBar .Category .Options .OptionsContainer .Option .Decore {
+.OptionsContainer .Option .Decore {
     flex-basis: 40px;
     display: flex;
     flex-shrink: 0;
 }
-.ToolBar .Category .Options .OptionsContainer .Option .Decore .Dot {
+.OptionsContainer .Option .Decore .Dot {
     margin: auto;
     width: 5px;
     height: 5px;
     border-radius: 5px;
     background-color: #8799a2;
 }
-.ToolBar .Category .Options .OptionsContainer .Option .Decore span {
+.OptionsContainer .Option .Decore span {
     flex-shrink: 1;
 }
-.ToolBar .Category .Options .OptionsContainer .Option:hover {
+.OptionsContainer .Option:hover {
     background-color: #517480;
 }

@@ -6,11 +6,13 @@
 import os
 
 import crochet
+import yaml
+from attrdict import AttrDict
 from twisted.internet import reactor
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User, Group
 from rotest.management import ResourceData
-from rotest.common.config import SHELL_APPS
+from rotest.common.config import SHELL_APPS, search_config_file
 from rotest.management.utils.resources_discoverer import get_resources
 
 from elrados.backend.management import BroadcastServerFactory
@@ -36,9 +38,27 @@ class WebsocketService(object):
         self.factory.cache.update_resource(sender, instance, **kwargs)
 
 
+def read_config():
+    """Read from rotest.yml config elrados segment."""
+    config_path = search_config_file()
+    if config_path is not None:
+        with open(config_path, "r") as config_file:
+            configuration_content = config_file.read()
+
+        yaml_configuration = yaml.load(configuration_content)
+
+    else:
+        yaml_configuration = {}
+
+    return AttrDict(yaml_configuration.get("elrados", {}))
+
+
 def setup_server():
     """Start the websocket server."""
     crochet.setup()
+
+    config = read_config()
+
     resource_models = [User, Group]
     for application in SHELL_APPS:
         resource_models.extend(
@@ -47,9 +67,13 @@ def setup_server():
             if resource.DATA_CLASS not in (None, NotImplemented)
             and issubclass(resource.DATA_CLASS, ResourceData))
 
+    default_resource = config.get("default_resource", None)
+    if default_resource is None:
+        default_resource = resource_models[-1].__name__
+
     if os.environ.get("RUN_MAIN") == "true":
         backend = WebsocketService(settings={
-            "default_resource": resource_models[-1].__name__
+            "default_resource": default_resource
         })
         backend.create_server(resource_models)
         post_save.connect(backend.send_to_client,
