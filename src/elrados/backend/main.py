@@ -9,10 +9,10 @@ import crochet
 import yaml
 from attrdict import AttrDict
 from twisted.internet import reactor
+from rotest.management import ResourceData
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User, Group
-from rotest.management import ResourceData
-from rotest.common.config import SHELL_APPS, search_config_file
+from rotest.common.config import search_config_file
 from rotest.management.utils.resources_discoverer import get_resources
 
 from elrados.backend.management import BroadcastServerFactory
@@ -60,12 +60,11 @@ def setup_server():
     config = read_config()
 
     resource_models = [User, Group]
-    for application in SHELL_APPS:
-        resource_models.extend(
-            resource.DATA_CLASS
-            for resource in get_resources(application).values()
-            if resource.DATA_CLASS not in (None, NotImplemented)
-            and issubclass(resource.DATA_CLASS, ResourceData))
+    resource_models.extend(
+        resource.DATA_CLASS
+        for resource in get_resources().values()
+        if resource.DATA_CLASS not in (None, NotImplemented)
+        and issubclass(resource.DATA_CLASS, ResourceData))
 
     default_resource = config.get("default_resource", None)
     if default_resource is None:

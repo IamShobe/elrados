@@ -3,14 +3,14 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.7.0"
+__version__ = "0.7.1"
 
 requirements = [
     'django>=1.8,<1.9',
     'twisted',
     'crochet',
     'autobahn',
-    'rotest>=5.5.0',
+    'rotest>=7.7.0',
 ]
 
 setup(
