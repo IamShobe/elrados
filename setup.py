@@ -10,7 +10,7 @@ requirements = [
     'twisted',
     'crochet',
     'autobahn',
-    'rotest>=7.7.0',
+    'rotest>=7.0.0',
 ]
 
 setup(
