@@ -1,8 +1,6 @@
 """Server Management tools."""
-# pylint: disable=superfluous-parens
-# pylint: disable=no-member
-# pylint: disable=protected-access
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,too-many-ancestors
+# pylint: disable=superfluous-parens,no-member,protected-access
 import json
 
 from django.contrib import admin

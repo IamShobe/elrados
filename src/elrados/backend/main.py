@@ -9,9 +9,9 @@ import crochet
 import yaml
 from attrdict import AttrDict
 from twisted.internet import reactor
-from rotest.management import ResourceData
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User, Group
+from rotest.management import ResourceData
 from rotest.common.config import search_config_file
 from rotest.management.utils.resources_discoverer import get_resources
 
