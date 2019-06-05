@@ -9,14 +9,13 @@ python:
 - '2.7'
 - '3.5'
 - '3.6'
+- '3.7'
 install: pip install tox
 script: tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d .)
 jobs:
   include:
-  - stage: test
-    script:
-    - tox
   - stage: deploy
+    python: '3.7'
     install: skip
     script: skip
     before_script: npm install && npm run build
