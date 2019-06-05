@@ -3,12 +3,14 @@ stages:
 - name: deploy
   if: tag IS present
 language: python
+sudo: required
+dist: xenial
 python:
 - '2.7'
 - '3.5'
 - '3.6'
 install: pip install tox
-script: tox
+script: tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d .)
 jobs:
   include:
   - stage: test
