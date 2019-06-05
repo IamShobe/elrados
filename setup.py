@@ -3,7 +3,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-__version__ = "0.7.1"
+__version__ = "0.7.2"
 
 requirements = [
     'django>=1.8,<1.9',
